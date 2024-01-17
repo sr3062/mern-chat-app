@@ -5,11 +5,20 @@ export default function Welcome() {
   const [userName, setUserName] = useState("");
   useEffect(() => {
     const setName = async () => {
-    setUserName(
-      await JSON.parse(
-        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-      ).username
-    );
+      const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+
+      // Check if storedData is not null
+      if (storedData !== null) {
+        // Parse the JSON and access the 'username' property
+        const parsedData = JSON.parse(storedData);
+        const username = parsedData.username;
+  
+        // Update the state with the username
+        setUserName(username);
+      } else {
+        // Handle the case where the item is not found in localStorage
+        console.error("Item not found in localStorage");
+      }
   };
   setName();
 }, []);
