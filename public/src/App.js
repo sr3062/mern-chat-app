@@ -4,6 +4,7 @@ import SetAvatar from "./components/SetAvatar";
 import Chat from "./pages/Chat";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ProtectedRoute from "./utils/ProtectedRoutes"
 export default function App() {
   return (
     <BrowserRouter>
@@ -11,7 +12,11 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/setAvatar" element={<SetAvatar />} />
-        <Route path="/" element={<Chat />} />
+        <Route path="/" element={
+        <ProtectedRoute>
+        <Chat/>
+        </ProtectedRoute>
+     }/>
       </Routes>
     </BrowserRouter>
   );
